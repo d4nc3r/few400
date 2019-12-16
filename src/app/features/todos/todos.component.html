@@ -10,8 +10,12 @@
 </div>
 
 <section>
+  <input type="button"
+         class="btn btn-success"
+         value="load todos"
+         (click)="loadList()">
   <ul class="list-unstyled">
     <li *ngFor="let todo of todoList$ | async"
-        class="alert alert-info">todo.description</li>
+        class="alert alert-info">{{todo.description}}</li>
   </ul>
 </section>

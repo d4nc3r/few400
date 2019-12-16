@@ -30,4 +30,8 @@ export class LoginComponent implements OnInit {
     passwordEl.value = '';
   }
 
+  logout() {
+    this.store.dispatch(userActions.logoutRequest());
+  }
+
 }

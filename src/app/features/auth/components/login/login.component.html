@@ -22,4 +22,8 @@
 </div>
 <div *ngIf="isLoggedIn$ | async">
   <p>Hello, {{ username$ | async }}</p>
+  <input type="button"
+         class="btn btn-sm btn-danger"
+         value="log out"
+         (click)="logout()">
 </div>

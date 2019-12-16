@@ -27,4 +27,8 @@ export class TodosComponent implements OnInit {
     this.store.dispatch(listActions.listItemAdded({ description }));
   }
 
+  loadList() {
+    this.store.dispatch(listActions.loadListData());
+  }
+
 }

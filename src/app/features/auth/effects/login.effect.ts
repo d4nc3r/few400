@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap, map, catchError, tap } from 'rxjs/operators';
-
-import * as userActions from '../actions/user.actions';
-import { environment } from '../../../../environments/environment';
 import { of } from 'rxjs';
+import { switchMap, map, catchError, tap, filter } from 'rxjs/operators';
+
+import { environment } from '../../../../environments/environment';
+import * as userActions from '../actions/user.actions';
+import * as appActions from 'src/app/actions/app.actions';
 
 @Injectable()
 export class LoginEffects {
   constructor(private actions$: Actions, private http: HttpClient) { }
+
+  checkForTokenOnAppStart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(appActions.applicationStarted),
+      map(() => localStorage.getItem('token')),
+      filter(Boolean),
+      map((token: string) => extractUserDataFromJwt(token)),
+      map(user => userActions.loginRequestSucceeded(user))
+    ), { dispatch: true }
+  );
 
   storeToken$ = createEffect(() =>
     this.actions$.pipe(
@@ -20,7 +31,7 @@ export class LoginEffects {
 
   removeToken$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(userActions.loginRequestFailed), // or logout request
+      ofType(userActions.loginRequestFailed, userActions.logoutRequest),
       tap(() => localStorage.setItem('token', ''))
     ), { dispatch: false }
   );
