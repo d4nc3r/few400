@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TodosComponent } from './features/todos/todos.component';
+import { LoginComponent } from './features/auth/components/login/login.component';
 
 
 const routes: Routes = [

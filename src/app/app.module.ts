@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodosModule } from './features/todos/todos.module';
 import { reducers } from './reducers';
+import { AuthModule } from './features/auth/auth.module';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { reducers } from './reducers';
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([]),
+    AuthModule,
     TodosModule
   ],
   providers: [],
