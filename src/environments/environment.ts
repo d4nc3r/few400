@@ -7,7 +7,8 @@ import { Environment } from './models';
 export const environment: Environment = {
   production: false,
   authUrl: 'http://localhost:3000/auth/login',
-  todosUrl: 'http://localhost:3000/todos'
+  todosUrl: 'http://localhost:3000/todos',
+  todosWsUrl: 'http://localhost:3000'
 };
 
 /*

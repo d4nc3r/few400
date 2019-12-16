@@ -37,3 +37,8 @@ export const loadListDataFailed = createAction(
   '[todos] failed to load list data',
   props<{ message: string }>()
 );
+
+export const gotTodoFromWebSocket = createAction(
+  '[todos] got todo from web socket',
+  props<{ payload: TodoEntity }>()
+);

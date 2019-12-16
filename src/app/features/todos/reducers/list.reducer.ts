@@ -25,7 +25,8 @@ const reducerFunction = createReducer(
     const tempState = adapter.removeOne(action.oldId, state);
     return adapter.addOne(action.payload, tempState);
   }),
-  on(listActions.listItemAddedFailure, (state, action) => adapter.removeOne(action.payload.id, state))
+  on(listActions.listItemAddedFailure, (state, action) => adapter.removeOne(action.payload.id, state)),
+  on(listActions.gotTodoFromWebSocket, (state, action) => adapter.upsertOne(action.payload, state))
 );
 
 export function reducer(state: State = initialState, action: Action) {

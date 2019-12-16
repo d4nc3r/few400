@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
+import * as io from 'socket.io-client';
 
 import { environment } from '../../../../environments/environment';
-import { TodosState } from '../reducers';
 import * as listActions from '../actions/list.actions';
 import { TodoEntity } from '../reducers/list.reducer';
-import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { TodosState } from '../reducers';
 
 @Injectable()
 export class ListEffects {
-  constructor(private actions$: Actions, private http: HttpClient) { }
+  socket;
+
+  constructor(private actions$: Actions, private http: HttpClient, private store: Store<TodosState>) {
+    this.connectWs();
+  }
 
   loadList$ = createEffect(() =>
     this.actions$.pipe(
@@ -36,4 +42,13 @@ export class ListEffects {
       )
     ), { dispatch: true }
   );
+
+
+
+  connectWs() {
+    this.socket = io(environment.todosWsUrl);
+    this.socket.on('connect', () => console.log('connected to web socket server'));
+    this.socket.on('todo-added', (data: TodoEntity) => this.store.dispatch(listActions.gotTodoFromWebSocket({ payload: data })));
+  }
+
 }
