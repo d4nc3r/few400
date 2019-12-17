@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { switchMap, map, catchError, tap, filter } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
+import * as appActions from '../../../actions/app.actions';
 import * as userActions from '../actions/user.actions';
-import * as appActions from 'src/app/actions/app.actions';
 
 @Injectable()
 export class LoginEffects {
-  constructor(private actions$: Actions, private http: HttpClient) { }
+  constructor(private actions$: Actions, private http: HttpClient, private router: Router) { }
 
   checkForTokenOnAppStart$ = createEffect(() =>
     this.actions$.pipe(
@@ -32,7 +33,8 @@ export class LoginEffects {
   removeToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.loginRequestFailed, userActions.logoutRequest),
-      tap(() => localStorage.setItem('token', ''))
+      tap(() => localStorage.setItem('token', '')),
+      tap(() => this.router.navigate(['../']))
     ), { dispatch: false }
   );
 

@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { featureName, reducers } from './reducers';
 import { LoginEffects } from './effects/login.effect';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -16,4 +17,12 @@ import { LoginEffects } from './effects/login.effect';
   ],
   exports: [LoginComponent]
 })
-export class AuthModule { }
+export class AuthModule {
+  // IMPORTANT (this is really poorly documented)
+  static forRoot() {
+    return {
+      ngModule: AuthModule,
+      providers: [AuthService]
+    };
+  }
+}

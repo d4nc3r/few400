@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TodosState, selectAllTodos } from './reducers';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import * as listActions from './actions/list.actions';
+import { TodosState, selectAllTodos } from './reducers';
 import { TodoEntity } from './reducers/list.reducer';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todos',
