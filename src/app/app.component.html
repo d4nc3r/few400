@@ -2,10 +2,16 @@
   <h1>Front End Web 400</h1>
   <h2>The End of the Road</h2>
   <app-login></app-login>
+  <p>{{currentUrl$ | async}}</p>
 </header>
 <main class="container">
   <nav>
     <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link"
+           [routerLinkActive]="['active']"
+           [routerLink]="['']">Home</a>
+      </li>
       <li *ngIf="isLoggedIn$ | async"
           class="nav-item">
         <a class="nav-link"
@@ -15,4 +21,5 @@
     </ul>
   </nav>
   <router-outlet></router-outlet>
+  <widgets-footer></widgets-footer>
 </main>
