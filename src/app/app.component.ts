@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState, selectUrl } from './reducers';
+import { AppState, selectRouteUrl } from './reducers';
 import { applicationStarted } from './actions/app.actions';
 import { AuthService } from './features/auth/services/auth.service';
 
@@ -22,6 +22,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-    this.currentUrl$ = this.store.select(selectUrl);
+    this.currentUrl$ = this.store.select(selectRouteUrl);
   }
 }

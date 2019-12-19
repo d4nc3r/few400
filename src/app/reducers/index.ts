@@ -25,3 +25,7 @@ export const {
 } = fromRouter.getSelectors(selectRouter);
 
 export const selectCustomerIdFromRoute = selectRouteParam('id');
+export const selectRouteUrl = createSelector(
+  selectUrl,
+  u => u
+);
